@@ -1,0 +1,46 @@
+version: '3'
+services:
+  dbos:
+    image: ${imagename}
+    restart: always
+    volumes:
+      - mysql_storage1:/var/lib/mysql
+    environment:
+            MYSQL_ROOT_PASSWORD: ${mysql_rp}
+            MYSQL_USER: ${mysql_uname}
+            MYSQL_PASSWORD: ${mysql_pass}
+            MYSQL_DATABASE: ${mysql_dbname}
+    networks:
+      - net1
+  wordpressos:
+    image: ${wordpressimage}
+    restart: always
+    #depends_on:
+    # - dbos
+    ports:
+      - ${basedock}
+    volumes:
+      - mywordpress_storage:/var/www/html
+    environment:
+            WORDPRESS_DB_HOST: dbos
+            WORDPRESS_DB_USER: root
+            WORDPRESS_DB_PASSWORD: ${mysql_rp} 
+            WORDPRESS_DB_NAME: ${mysql_dbname}
+    networks:
+       - net1     
+volumes:
+   mysql_storage1:
+   mywordpress_storage:
+
+
+networks:       
+  net1:
+    driver: bridge
+    
+
+
+
+
+
+
+

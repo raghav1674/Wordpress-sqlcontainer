@@ -1,0 +1,2 @@
+.env file will be created when we run this python code and then we can use that settings 
+multiple times and if someone wanst to buid new conatiners can run the python code.
